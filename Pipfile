@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+
+civitai-comfy-nodes = "==0.2.0"
+comfy-cli = "==1.3.5"
+comfyui-tooling-nodes = "==0.1.0"
+comfyui-ib-customnodes = "==0.2.3"
+playsound = "==1.2.2"
+
+
+[dev-packages]
+
+[requires]
+python_version = "3.12"
