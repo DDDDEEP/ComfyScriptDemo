@@ -1,0 +1,5 @@
+from datetime import datetime
+
+COMFYUI_DIRPATH = ".."
+SOUND_FILEPATH = f'.\\assets\\notification.mp3'
+OUTPUT_DIRPATH = f"{COMFYUI_DIRPATH}\\output\\{datetime.now().strftime('%Y-%m-%d')}\\"

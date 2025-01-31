@@ -1,0 +1,39 @@
+
+# artist images dir path
+# all image should be named as artist_name.jpg/png, e.g. "alp.jpg"
+ARTIST_DIRPATH = "C:\\Softlink\\Gallery\\artist\\normal"
+
+WIDTH = 832
+HEIGHT = 1216
+NOICE_SEED = 689914488429495
+CKPT_NAME = "waiNSFWIllustrious_v90.safetensors"
+
+# the number of result images per row and column
+PER_ROW_COUNT = 4
+PER_COL_COUNT = 2
+PER_TOTAL_COUNT = PER_ROW_COUNT * PER_COL_COUNT
+
+READ_IMAGE_START_INDEX = 0
+READ_IMAGE_MAX_COUNT = 999
+
+# the common prefix of output file name
+FILE_COMMON_PREFIX = "txt2img_artist_gallery"
+
+
+
+POSITIVE_PROMPT_TEMPLATE = '''
+1girl,iino miko,brown eyes,brown hair,long hair,low twintails,blunt bangs,medium breasts,collarbone,
+artist:{artist_name},
+shuuchiin academy school uniform, shuuchiin academy school uniform, black dress,black pantyhose,
+classroom,
+full body,waving,standing
+BREAK sfw,depth of field,masterpiece,best quality,amazing quality,very aesthetic,high resolution,ultra-detailed,absurdres,newest,scenery,volumetric lighting
+'''
+
+NEGATIVE_PROMPT_TEMPLATE = '''
+modern,recent,old,oldest,cartoon,graphic,text,painting,crayon,graphite,abstract,glitch,deformed,mutated,ugly,disfigured,long body,lowres,bad anatomy,bad hands,missing fingers,extra digit,fewer digits,cropped,very displeasing,(worst quality, bad quality:1.2),bad anatomy,sketch,jpeg artifacts,signature,watermark,username,signature,simple background,conjoined,bad ai-generated,text
+'''
+
+
+def output_file_prefix_for(artist_name: str) -> str:
+    return f"{FILE_COMMON_PREFIX}-{artist_name}-{NOICE_SEED}"
