@@ -100,7 +100,7 @@ if __name__ == "__main__":
                 singleImage = row_image
             else:
                 singleImage = concat_images([singleImage, row_image], Orientation.VERTICAL)
-        save_path = f"{OUTPUT_DIRPATH}\\result-{FILE_COMMON_PREFIX}-{sanitize_path_for(path=ARTIST_DIRPATH)}-{NOICE_SEED}-{i // PER_TOTAL_COUNT}.jpg"
+        save_path = f"{OUTPUT_DIRPATH}\\result-{FILE_COMMON_PREFIX}-{sanitize_path_for(path=ARTIST_DIRPATH)}-{i // PER_TOTAL_COUNT}.jpg"
         singleImage.save(save_path, format="JPEG")
 
     playsound(SOUND_FILEPATH)
