@@ -64,6 +64,8 @@ All set! The workflow is now configured and ready to run. 🚀
    Set required parameters in the configuration file, particularly:
    - `ARTIST_DIRPATH`: Path to your source images directory.  
      Example directory structure:
+     
+     (Or you can download test artist images from [here](https://drive.google.com/file/d/1JT9zBapx24HLdtsGhU2tuucgwRBPB0gp/view?usp=drive_link))
      ```bash
      - C:\\Softlink\\Gallery\\artist\\normal
         - alp.jpg
@@ -71,6 +73,7 @@ All set! The workflow is now configured and ready to run. 🚀
         - momoko_(momopoco).jpg
         - ...
      ```
+
 
 3. Execute the workflow:  
    Run the following commands:
