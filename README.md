@@ -24,13 +24,16 @@ python -m pipenv shell
 ```
 
 
-### 1.3. Install ComfyScript
+### 1.3. Install ComfyScript && CustomNodes
 
 Reference from [ComfyScript](https://github.com/Chaoses-Ib/ComfyScript), **and run the following commands in pipenv**:
 
 ```bash
 cd ../custom_nodes
-git clone https://github.com/Chaoses-Ib/ComfyScript.git
+[ ! -d ComfyScript ] && git clone https://github.com/jags111/ComfyScript.git
+[ ! -d ComfyUI-KJNodes ] && git clone https://github.com/jags111/ComfyUI-KJNodes.git
+[ ! -d efficiency-nodes-comfyui ] && git clone https://github.com/jags111/efficiency-nodes-comfyui.git
+[ ! -d sd-dynamic-thresholding ] && git clone https://github.com/mcmonkeyprojects/sd-dynamic-thresholding.git
 cd ComfyScript
 python -m pip install -e ".[default]"
 ```
