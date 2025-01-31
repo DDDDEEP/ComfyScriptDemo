@@ -34,7 +34,7 @@ def create_save_image_task(artist_name: str):
     )
 
     model, conditioning, conditioning2, latent, vae, _, dependencies = EfficientLoader(
-        {CKPT_NAME}, 'Baked VAE', -
+        CKPT_NAME, 'Baked VAE', -
         2, 'None', 1.0, 1.0, postivie_prompt, negative_prompt, 'none', 'comfy', WIDTH, HEIGHT, 1, None, None
     )
 
