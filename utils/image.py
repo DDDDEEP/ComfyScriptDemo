@@ -103,8 +103,10 @@ def danbooru_tag_to_sd(src_tag: str) -> str:
     """
     Convert Danbooru tags to SD tags with the following transformations:
     - Replace '_' with ' '
-    - Replace '(' with '\('
-    - Replace ')' with '\)'
+    - Replace '(' with '\(' and ')' with '\)'
+    - Replace multiple spaces with a single space
+    - Replace multiple newlines with a single newline
+    - Replace multiple commas with a single comma
 
     :param src_tag: Original Danbooru tag
     :return: Converted SD tag
@@ -112,11 +114,17 @@ def danbooru_tag_to_sd(src_tag: str) -> str:
     # Replace '_' with ' '
     result = src_tag.replace('_', ' ')
 
-    # Replace '(' with '\('
-    result = result.replace('(', '\(')
+    # Replace '(' with '\(' and ')' with '\)'
+    result = result.replace('(', '\(').replace(')', '\)')
 
-    # Replace ')' with '\)'
-    result = result.replace(')', '\)')
+    # Replace multiple spaces with a single space
+    result = re.sub(r' +', ' ', result)
+
+    # Replace multiple newlines with a single newline
+    result = re.sub(r'\n+', '\n', result)
+
+    # Replace multiple commas with a single comma
+    result = re.sub(r',+', ',', result)
 
     return result
 

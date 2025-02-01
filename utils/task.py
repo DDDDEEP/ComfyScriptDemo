@@ -4,6 +4,7 @@ from comfy_script.runtime import *
 from comfy_script.runtime.nodes import *
 from comfy_script.runtime.node import *
 from utils.constant import *
+from utils.image import *
 
 
 def cleanup(signum, frame):
@@ -12,9 +13,11 @@ def cleanup(signum, frame):
 
 
 def create_save_image_task(config: dict, filename_prefix: str):
-    postivie_prompt = StringConstant(POSITIVE_PROMPT_TEMPLATE.format(**config))
+    pos_str = danbooru_tag_to_sd(POSITIVE_PROMPT_TEMPLATE.format(**config))
+    postivie_prompt = StringConstant(pos_str)
 
-    negative_prompt = StringConstant(NEGATIVE_PROMPT_TEMPLATE.format(**config))
+    neg_str = danbooru_tag_to_sd(NEGATIVE_PROMPT_TEMPLATE.format(**config))
+    negative_prompt = StringConstant(neg_str)
 
     model, conditioning, conditioning2, latent, vae, _, dependencies = EfficientLoader(
         config[CKPT], 'Baked VAE', -

@@ -18,22 +18,14 @@ PROMPT_NEGATIVE = "prompt_negative"
 
 
 POSITIVE_PROMPT_TEMPLATE = '''
-{prompt_girls}
-BREAK
-{prompt_clothes}
-BREAK
-{prompt_artist}
-BREAK
-{prompt_boys}
-BREAK
-{prompt_scene}
-BREAK
-{prompt_motion}
-BREAK
-{prompt_desc}
-BREAK
-{prompt_others}
-BREAK
+{prompt_girls},
+{prompt_clothes},
+{prompt_artist},
+{prompt_boys},
+{prompt_scene},
+{prompt_motion},
+{prompt_desc},
+{prompt_others},
 {prompt_ckpt}
 '''
 

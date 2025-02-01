@@ -7,8 +7,8 @@ from txt2img_artist_gallery.task_config.example import *
 ARTIST_DIRPATH = "C:\\Softlink\\Gallery\\artist\\test"
 
 # the number of result images per row and column
-PER_ROW_COUNT = 3
-PER_COL_COUNT = 5
+PER_ROW_COUNT = 4
+PER_COL_COUNT = 2
 PER_TOTAL_COUNT = PER_ROW_COUNT * PER_COL_COUNT
 
 
