@@ -1,6 +1,8 @@
 # ComfyScriptDemo
 src
 settings.py
+*/task_config/*
+!example.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

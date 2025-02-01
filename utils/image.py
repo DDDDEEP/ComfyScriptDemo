@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 from playsound import playsound
 from typing import List, Optional, Union, Tuple
 from enum import Enum
-from settings import *
+from utils.settings import *
 
 
 def sanitize_path_for(path: str) -> str:
@@ -264,7 +264,7 @@ def resize_images(images: List[Image.Image], width: int, height: int) -> List[Im
     return resized_images
 
 
-def create_images_row(*image_lists: List[Image.Image], titles: Optional[List[str]], title_height: Optional[int], width: int, height: int) -> Image.Image:
+def create_images_row(*image_lists: List[Image.Image], titles: Optional[List[str]] = None, title_height: Optional[int] = None, width: int, height: int) -> Image.Image:
     """
     Create a row of images.
     A small area is vertically distributed as "title+image_list1[i]+image_list2[i]+...", and then each small area is connected horizontally to form a row of images.
@@ -286,8 +286,7 @@ def create_images_row(*image_lists: List[Image.Image], titles: Optional[List[str
 
         if titles is not None and title_height is not None and i < len(titles):
             # Create title image
-            title_img = create_title_images(
-                [titles[i]], Orientation.HORIZONTAL, width, title_height)
+            title_img = create_title_images([titles[i]], Orientation.HORIZONTAL, width, title_height)
             small_area.append(title_img)
 
         # Add images from each image list to the small area
@@ -305,3 +304,85 @@ def create_images_row(*image_lists: List[Image.Image], titles: Optional[List[str
 
     # Horizontally concatenate all small areas
     return concat_images(rows, Orientation.HORIZONTAL)
+
+
+def add_titles_for_image(image: Image.Image, x_titles: List[str] = [], y_titles: List[str] = [], font_size: int = 26) -> Image:
+    """
+    Add titles above and to the left of an image, centering x-titles with padding and evenly spacing y-titles.
+
+    :param image: The base image to add titles to.
+    :param x_titles: List of titles to be placed horizontally above each image segment with padding.
+    :param y_titles: List of titles to be placed vertically to the left of the image, with automatic line wrapping.
+    :return: Image with titles added.
+    """
+    font = ImageFont.truetype("arial.ttf", font_size)
+
+    # Vertical padding for x titles and horizontal padding for y titles
+    x_vertical_padding = 10  # Increased padding for x titles
+    y_vertical_padding = 5
+    x_horizontal_padding = 10
+
+    # Calculate title dimensions with padding
+    max_x_title_width, x_title_height = 0, 0
+    for title in x_titles:
+        bbox = font.getbbox(title)
+        max_x_title_width = max(max_x_title_width, bbox[2] - bbox[0])
+        x_title_height = max(x_title_height, bbox[3] - bbox[1] + y_vertical_padding)
+
+    # For y titles, we use a smaller width to force wrapping
+    wrap_width = 100  # Adjust this value based on your needs
+    max_y_title_width, y_total_height = 0, 0
+    y_titles_with_wrapping = []
+    for title in y_titles:
+        wrapped_lines = []
+        words = title.split()
+        current_line = []
+        for word in words:
+            if font.getbbox(" ".join(current_line + [word]))[2] <= wrap_width:
+                current_line.append(word)
+            else:
+                wrapped_lines.append(" ".join(current_line))
+                current_line = [word]
+        if current_line:
+            wrapped_lines.append(" ".join(current_line))
+        y_titles_with_wrapping.extend(wrapped_lines)
+
+        for line in wrapped_lines:
+            bbox = font.getbbox(line)
+            max_y_title_width = max(max_y_title_width, bbox[2] - bbox[0] + x_horizontal_padding)
+            y_total_height += bbox[3] - bbox[1] + y_vertical_padding
+
+    # New image dimensions
+    new_width = image.width + max_y_title_width
+    new_height = image.height + x_title_height + x_vertical_padding  # Add padding for x titles
+    new_image = Image.new("RGB", (new_width, new_height), color="white")
+
+    draw = ImageDraw.Draw(new_image)
+
+    # Paste original image below the x titles space
+    new_image.paste(image, (max_y_title_width, x_title_height + x_vertical_padding))
+
+    # Place x titles, centered within each segment with vertical padding
+    if x_titles:
+        segment_width = image.width // len(x_titles)
+        for i, title in enumerate(x_titles):
+            bbox = font.getbbox(title)
+            x_position = max_y_title_width + i * segment_width + (segment_width - bbox[2]) // 2
+            draw.text((x_position, x_vertical_padding // 2), title, font=font, fill="black")
+
+    # Place y titles, evenly spaced and vertically centered within their segment
+    if y_titles:
+        y_segment_height = image.height // len(y_titles)
+        y_offset = x_title_height + x_vertical_padding  # Start below x titles
+        current_y = 0
+        for i, title in enumerate(y_titles_with_wrapping):
+            bbox = font.getbbox(title)
+            if i % (len(y_titles_with_wrapping) // len(y_titles)) == 0:  # New y title segment
+                current_y = y_offset + i * (y_segment_height // (len(y_titles_with_wrapping) // len(y_titles)))
+                # Center y title within its segment
+                current_y += (y_segment_height // (len(y_titles_with_wrapping) // len(y_titles)) - (bbox[3] - bbox[1])) // 2
+            x_position = (max_y_title_width - bbox[2]) // 2
+            draw.text((x_position, current_y), title, font=font, fill="black")
+            current_y += bbox[3] - bbox[1] + y_vertical_padding
+
+    return new_image

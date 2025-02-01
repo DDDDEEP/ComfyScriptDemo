@@ -1,0 +1,2 @@
+# you can switch task config from here
+from txt2img_zyx.task_config.example import *
