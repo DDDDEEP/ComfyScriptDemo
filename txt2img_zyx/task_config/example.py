@@ -72,7 +72,7 @@ TASK_CONFIG_X = [
     {
         TITLE: "maid",
         CONFIG: {
-            PROMPT_CLOTHES: lambda s: "apron, red bow, red bowtie, black dress, maid apron, puffy short sleeves, puffy sleeves, short sleeves, waist apron, white apron,white thighhighs",
+            PROMPT_CLOTHES: lambda s: "apron, red bow, red bowtie, black dress, maid apron, puffy short sleeves, puffy sleeves, short sleeves, waist apron, white apron,white thighhighs,(white wristban),",
             PROMPT_SCENE: lambda s: "Coffee shop",
             PROMPT_MOTION: lambda s: "full body,standing,mouth, enmaided, fingernails, holding own arm, looking at viewer, maid, split mouth,  wristban,shame,blush"
         }
