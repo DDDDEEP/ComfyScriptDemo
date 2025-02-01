@@ -40,7 +40,7 @@ python -m pip install -e ".[default]"
 
 ### 1.4. Duplicate settings.py file
 
-Duplicate the `settings.py.default` configuration file as `settings.py`
+Duplicate the `utils/settings.py.default` configuration file as `utils/settings.py`
 
 All set! The workflow is now configured and ready to run. 🚀
 
@@ -56,11 +56,12 @@ All set! The workflow is now configured and ready to run. 🚀
 - Then the workflow will generate an XY comparison matrix between the original images and generated outputs.
 
 - Example output:  
-![txt2img_artist_gallery](./assets/result-txt2img_artist_gallery-artist_test-689914488429495-0.jpg)
+![txt2img_artist_gallery](./assets/result-txt2img_artist_gallery-waiNSFW-689914488429495-artist_test-0.jpg)
 
 #### 2.1.2 Usage
 
 1. Create configuration file:  
+   
    Duplicate the `txt2img_artist_gallery/settings.py.default` file as `txt2img_artist_gallery/settings.py`
 
 2. Configure `txt2img_artist_gallery/settings.py`:  
@@ -84,3 +85,36 @@ All set! The workflow is now configured and ready to run. 🚀
    cd ComfyScriptDemo
    python -m txt2img_artist_gallery.workflow
    ```
+
+4. Custom prompt:  
+
+   Duplicate the `txt2img_artist_gallery/task_config/example.py` to make your own prompt!
+
+   You can switch task config in `txt2img_artist_gallery/settings.py`.
+
+
+
+### 2.2. txt2img_zyx
+
+#### 2.2.1 Introduction
+- You can use the z, y, x coordinates to compare the difference of images.
+
+- Example output:  
+![txt2img_artist_gallery](./assets/result-txt2img_zyx-689914488429495--.jpg)
+
+#### 2.2.2 Usage
+
+1. Create configuration file:
+
+   Duplicate the `txt2img_zyx/settings.py.default` file as `txt2img_zyx/settings.py`.
+
+2. Custom prompt:
+
+   Duplicate the `txt2img_zyx/task_config/example.py` to make your own prompt!
+
+   You can switch task config in `txt2img_zyx/settings.py`.
+
+
+3. Config zyx:  
+   
+   Please refer to the `TASK_CONFIG_Z`, `TASK_CONFIG_Y`, and `TASK_CONFIG_X` configurations in the `txt2img_zyx/task_config/example.py file` for guidance.
