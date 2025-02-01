@@ -13,6 +13,7 @@ def cleanup(signum, frame):
 
 
 def create_save_image_task(config: dict, filename_prefix: str):
+    config[PROMPT_ARTIST] = danbooru_artist_tag_to_sd(config[PROMPT_ARTIST])
     pos_str = danbooru_tag_to_sd(POSITIVE_PROMPT_TEMPLATE.format(**config))
     postivie_prompt = StringConstant(pos_str)
 
