@@ -22,7 +22,7 @@ sys.path.insert(0, '../../')
 from utils.task import *
 
 
-FILE_COMMON_PREFIX = "txt2img_yzx"
+FILE_COMMON_PREFIX = "txt2img_zyx"
 
 
 def output_file_prefix_for(z: str, y: str = "", x: str = "") -> str:
